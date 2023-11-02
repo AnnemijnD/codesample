@@ -140,16 +140,16 @@ var margin = {top: 30, right: 30, bottom: 30, left: 30},
 // Define path of data and import data
 var datapath = "../";
 try {
-  d3.csv(datapath + "results_features/heatmap_RFE_feat.csv", function(data) {
+  d3.csv(datapath + "results/features/heatmap_RFE_feat.csv", function(data) {
     console.log(data)
   })
 }
 catch(err) {
   datapath = "../../"
-  d3.csv(datapath + "results_features/heatmap_RFE_feat.csv", function(data) {
+  d3.csv(datapath + "results/features/heatmap_RFE_feat.csv", function(data) {
     console.log(data)})
 }
-d3.csv(datapath+ "results_features/heatmap_RFE_feat.csv", function(data) {
+d3.csv(datapath+ "results/features/heatmap_RFE_feat.csv", function(data) {
 
   var feature_array = [];
   var type_array = [];
