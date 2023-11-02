@@ -129,7 +129,7 @@ def FS_IG(X_train,Y_train,X_test,Nfeatures,IG_neighbours):
 def classify(X_train, X_test, Y_train, Y_test,classifier):
     """
 
-    #Apply Support Vector Machine Algorithm for classification using the train set.
+    Apply Support Vector Machine Algorithm for classification using the train set.
 
     """
 
