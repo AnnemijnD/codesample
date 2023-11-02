@@ -13,13 +13,14 @@ This project investigated three feature selection methods and used a Support
 Vector Machine as a classification method. To find the most optimal parameter set,
 nested cross validation was implemented.
 
-![CV.png]()
+
+![alt text](https://github.com/AnnemijnD/codesample/Figures/CV.png)
 
 Ultimately, the best parameters for all three feature selection methods were found
 and a confusion matrix was created using those parameters. The predicted class is shown on the X-axis
 and on the Y-axis the true class can be observed.
 
-![Figures/confusion_matrix.png]()
+![alt text](https://github.com/AnnemijnD/codesample/Figures/confusion_matrix.png)
 
 
 ## 2. Datamining
