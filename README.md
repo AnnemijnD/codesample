@@ -20,7 +20,7 @@ Ultimately, the best parameters for all three feature selection methods were fou
 and a confusion matrix was created using those parameters. The predicted class is shown on the X-axis
 and on the Y-axis the true class can be observed.
 
-![ScreenShot](/Figures/confusion_matrix.png)
+![ScreenShot](/Figures/CM_RFE.png)
 
 
 ## 2. Datamining
