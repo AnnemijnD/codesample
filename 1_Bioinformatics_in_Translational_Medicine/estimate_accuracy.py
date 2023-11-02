@@ -8,15 +8,15 @@ import seaborn as sns
 from sklearn.metrics import classification_report
 import matplotlib.pyplot as plt
 
-#get all seperate pkl files from the folder seperate_iterations_results_NCV
+#get all seperate pkl files from the folder results
 #each file contains 1 iterations of 3 outer folds of the nested cros validation
-all_files = [f for f in listdir('seperate_iterations_results_NCV') if isfile(join('seperate_iterations_results_NCV', f))]
+all_files = [f for f in listdir('results/runs') if isfile(join('results/runs', f))]
 
 #create list to combine all seperate iteration
 combined_results_NCV = []
 
 for f in all_files:
-    f = "seperate_iterations_results_NCV/" + f
+    f = "results/runs/" + f
     with open(f, 'rb') as f1:
         f2 = pickle.load(f1)
         #put all seperate iteration pkl files, in one list
@@ -39,21 +39,26 @@ for iter in combined_results_NCV:
         inner_results = iter[0][i]["params"]["inner_results"]
         distinct_inner_results.append(str(inner_results))
 
+
+
 #Make list distinct_inner_results really distinct
 distinct_inner_results = list(set(distinct_inner_results))
+
 
 #iterate over distinct inner results and get outer fold accuracy.
 results = []
 
 for inner_result in distinct_inner_results:
+
     outer_fold_score_sum = 0
     freq = 0
     for iter in combined_results_NCV:
         for i in range (1,4):
-            #find the outer fold accuracy of the distinct models
-            if str(iter[0][i]["params"]["inner_results"]) == inner_result :
+
+            # find the outer fold accuracy of the distinct models
+            if str(iter[0][i]["params"]["inner_results"]) == inner_result:
                 outer_fold_score_sum = outer_fold_score_sum + iter[0][i]["score"]
-                freq = freq + 1
+                freq += 1
     results.append({ "inner_result" : inner_result, "outer_fold_score_sum" : outer_fold_score_sum, "freq" : freq} )
 
 
@@ -64,18 +69,18 @@ for result in results:
 
 ordered_results = sorted(results, key = lambda k: k["average_accuracy"])
 
-#put ordered_results list in a dataframe so it readable
+# put ordered_results list in a dataframe so it readable
 df_results = pd.DataFrame(ordered_results)
 print(df_results, "\n ")
 
-#print only the models so it's readable.
+# print only the models so it's readable.
 u = 0
 for result in ordered_results:
     print(u, "     ", result["inner_result"])
     u = u + 1
 
 ##################################   MAKING THE Confusion Matrix:
-#Based on df_results...
+# Based on df_results...
 # We decided that the best model is model number 10. Selector= RFE and N features = 20 RFE_step=2 so select that one for confusion matrix to estimate accuracies
 best_model=[]
 for iteration in combined_results_NCV:
