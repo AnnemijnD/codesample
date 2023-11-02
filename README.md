@@ -14,13 +14,13 @@ Vector Machine as a classification method. To find the most optimal parameter se
 nested cross validation was implemented.
 
 
-![alt text](https://github.com/AnnemijnD/codesample/Figures/CV.png)
+![Alt Text](https://github.com/AnnemijnD/codesample/Figures/CV.png)
 
 Ultimately, the best parameters for all three feature selection methods were found
 and a confusion matrix was created using those parameters. The predicted class is shown on the X-axis
 and on the Y-axis the true class can be observed.
 
-![alt text](https://github.com/AnnemijnD/codesample/Figures/confusion_matrix.png)
+![Alt Text](https://github.com/AnnemijnD/codesample/Figures/confusion_matrix.png)
 
 
 ## 2. Datamining
