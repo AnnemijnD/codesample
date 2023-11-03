@@ -15,13 +15,13 @@ This project investigated three feature selection methods and used a Support
 Vector Machine as a classification method. Using nested cross validation, the accuracy of the feature selection methods and several parameter settings was tested.
 
 
-![ScreenShot](Figures/CV.png)
+![ScreenShot](/figures/CV.png)
 
 Ultimately, the best feature selection method and corresponding parameter set were chosen based on the accuracy scores that were found during cross validation.
 We classified the breast cancer patients and created a confusion matrix of the results. The predicted class is shown on the X-axis
 and on the Y-axis the true class can be observed.
 
-![ScreenShot](/Figures/RFE_CM.png)
+![ScreenShot](/figures/RFE_CM.png)
 
 Lastly, to manually investigate which features were selected most often,
 an interactive frequency heat map was created with. This heatmap can be viewed [here](https://annemijnd.github.io/codesample/1_Bioinformatics_in_Translational_Medicine/html/heatmap_RFE.html). In the upper graph, the features are sorted
@@ -29,12 +29,17 @@ by frequency. In the bottom graph, they are ordered by feature number.
 
 ### Files and code
 ```
-1_Bioinformatics_in_Translational_Medicine
+codesample
 │   ├── data
-│   ├── seperate_iterations_results_NCV
-│   ├── estimate_accuracy.py
-│   ├──nesed_cross_validation.py
-│   ├──train_final_model.py
+|   ├── figures
+│   ├── results
+│   │      ├── features
+│   │      ├── runs
+│   ├── html
+│   ├── js
+│   ├── index.html
+│   ├── nested_cross_validation.py
+│   ├── train_final_model.py
 
 
 ```
