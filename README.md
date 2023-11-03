@@ -26,7 +26,7 @@ This project investigated three feature selection methods and used a Support
 Vector Machine as a classification method. Using nested cross validation, the accuracy of the feature selection methods and several parameter settings was tested.
 <html>
 <center>
-<img src="figures/CV.png" width="350" height="350" />
+<img src="figures/CV.png" width="50%" height="50%" />
 </center>
 </html>
 Ultimately, the best feature selection method and corresponding parameter set were chosen based on the accuracy scores that were found during cross validation.
