@@ -46,4 +46,4 @@ and on the Y-axis the true class can be observed.
 </html>
 
 Lastly, to manually investigate which features were selected most often,
-an interactive scatterplot and frequency heat map was created with JavaScript. The scatterplot can be viewed [here](https://annemijnd.github.io/codesample/html/scat_freq_acc.html).  The heatmap can be viewed [here](https://annemijnd.github.io/codesample/html/heatmap_RFE.html).
+an interactive scatterplot and frequency heatmap was created with JavaScript. The scatterplot can be viewed [here](https://annemijnd.github.io/codesample/html/scat_freq_acc.html). The heatmap can be viewed [here](https://annemijnd.github.io/codesample/html/heatmap_RFE.html).
