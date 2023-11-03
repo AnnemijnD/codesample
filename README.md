@@ -34,7 +34,7 @@ We classified the breast cancer patients and created a confusion matrix of the r
 and on the Y-axis the true class can be observed.
 <html>
 <center>
-<img src="figures/RFE_CM.png" />
+<img src="figures/RFE_CM.png" width="50%" height="50%" />
 </center>
 </html>
 Lastly, to manually investigate which features were selected most often,
