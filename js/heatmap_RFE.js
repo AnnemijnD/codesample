@@ -83,7 +83,7 @@ d3.csv(datapath+ "results/features/heatmap_RFE_freq.csv", function(data) {
       .attr("class", "label")
       .attr("transform", "rotate(-90)")
       .attr("y",  -margin.left/2)
-      .attr("x", (-height+margin.top+margin.bottom)/2 )
+      .attr("x", (-height+margin.top+margin.bottom)/2)
       .attr("font", "30px")
       .style("text-anchor", "end")
       .text("Breast cancer subtype");
