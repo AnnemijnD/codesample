@@ -3,21 +3,23 @@
 This GitHub page contains the project I did during a bioinformatics course. We used machine learning to classify subtypes of breast cancer within patients.
 
 ## Overview
+
+Here is an overview of the contents of this project. I would recommend to look at the nested_cross_validation.py file.
 ```
 codesample
 │   ├── data                        Contains patient data
 |   ├── figures                     Contains figures shown in this README file
 │   ├── results                     
 │   │      ├── features             Contains feature selection results
-│   │      ├── runs                 Contains result data of the cross validation
 │   ├── html                        Contains html files for figures
 │   ├── js                          Contains JavaScript files to create figures
 │   ├── index.html                  Contains direct links to html files
-│   ├── nested_cross_validation.py  Python file with nested cross validation
+│   ├── ***nested_cross_validation.py  Python file with nested cross validation***
 │   ├── train_final_model.py        Python file where the final model is trained
 
 
 ```
+
 
 ## Brief summary of the project
 During this project, we obtained the data of breast cancer patients and were asked
@@ -42,4 +44,4 @@ and on the Y-axis the true class can be observed.
 </html>
 
 Lastly, to manually investigate which features were selected most often,
-an interactive scatterplot and frequency heat map was created with JavaScript. The scatterplot can be viewed [here](https://annemijnd.github.io/codesample/html/scat_freq_acc.html).  The heatmap can be viewed [here](https://annemijnd.github.io/codesample/html/heatmap_RFE.html). 
+an interactive scatterplot and frequency heat map was created with JavaScript. The scatterplot can be viewed [here](https://annemijnd.github.io/codesample/html/scat_freq_acc.html).  The heatmap can be viewed [here](https://annemijnd.github.io/codesample/html/heatmap_RFE.html).
