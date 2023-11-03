@@ -3,17 +3,17 @@
 // Define data path and import data
 var datapath = "../";
 try {
-  d3.csv(datapath + "results/features/heatmap_InfoGain_freq.csv", function(data) {
+  d3.csv(datapath + 'results/features/scatterplot_IGdata.csv', function(data) {
     console.log(data)
   })
 }
 catch(err) {
   datapath = "../../"
-  d3.csv(datapath + "results/features/heatmap_InfoGain_freq.csv", function(data) {
+  d3.csv(datapath + 'results/features/scatterplot_IGdata.csv', function(data) {
     console.log(data)})
 }
 
-d3.csv(datapath + 'results/features/IG100.csv', function loadCallback(error, data) {
+d3.csv(datapath + 'results/features/scatterplot_IGdata.csv', function loadCallback(error, data) {
     data.forEach(function(d) {
         // convert strings to numbers
         d.accs = +d.accs;
