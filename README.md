@@ -1,14 +1,25 @@
-# Code Sample
+# Code Sample Bioinformatics project
 
-## Files
-This folder contains the projects of two courses I followed during my master's.
-1. Bioinformatics in Translational Medicine
-2. Datamining
+This GitHub page contains the project I did during a bioinformatics course. We used machine learning to classify subtypes of breast cancer within patients.
+
+## Overview
+```
+codesample
+│   ├── data                        Contains patient data
+|   ├── figures                     Contains figures shown in this README file
+│   ├── results                     
+│   │      ├── features             Contains feature selection data
+│   │      ├── runs                 Contains result data of the cross validation
+│   ├── html                        Contains html files for figures
+│   ├── js                          Contains JavaScript files to create figures
+│   ├── index.html                  Contains direct links to html files
+│   ├── nested_cross_validation.py  Python file with nested cross validation
+│   ├── train_final_model.py        Python file where the final model is trained
 
 
-## 1. Bioinformatics in Translational Medicine
+```
 
-### Brief summary of the project
+## Brief summary of the project
 During this project, we obtained the data of 100 breast cancer patients and were asked
 to create a model that would be able to classify the samples into different breast cancer subtypes.
 This project investigated three feature selection methods and used a Support
