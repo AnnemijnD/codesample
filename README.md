@@ -13,8 +13,8 @@ codesample
 │   ├── html                        Contains html files for figures
 │   ├── js                          Contains JavaScript files to create figures
 │   ├── index.html                  Contains direct links to html files
-│   ├── nested_cross_validation.py  Python file with nested cross validation -- Look at this file first
-│   ├── train_final_model.py        Python file where the final model is trained -- Look at this file second
+│   ├── nested_cross_validation.py  Python file with nested cross validation 
+│   ├── train_final_model.py        Python file where the final model is trained
 
 
 ```
