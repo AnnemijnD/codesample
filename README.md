@@ -25,14 +25,14 @@ to create a model that would be able to classify the samples into different brea
 This project investigated three feature selection methods and used a Support
 Vector Machine as a classification method. Using nested cross validation, the accuracy of the feature selection methods and several parameter settings was tested.
 
-<img src="figures/CV.png" width="200" height="200" />
+<img src="figures/CV.png" width="250" height="250" />
 
 
 Ultimately, the best feature selection method and corresponding parameter set were chosen based on the accuracy scores that were found during cross validation.
 We classified the breast cancer patients and created a confusion matrix of the results. The predicted class is shown on the X-axis
 and on the Y-axis the true class can be observed.
 
-<img src="figures/RFE_CM.png" width="200" height="200" />
+<img src="figures/RFE_CM.png" width="250" height="250" />
 
 Lastly, to manually investigate which features were selected most often,
 an interactive frequency heat map was created with. This heatmap can be viewed [here](https://annemijnd.github.io/codesample/1_Bioinformatics_in_Translational_Medicine/html/heatmap_RFE.html). In the upper graph, the features are sorted
