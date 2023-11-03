@@ -7,15 +7,17 @@ This GitHub page contains the project I did during a bioinformatics course. We u
 Here is an overview of the contents of this project. I would recommend to look at the nested_cross_validation.py file.
 ```
 codesample
-│   ├── data                        Contains patient data
-|   ├── figures                     Contains figures shown in this README file
-│   ├── results                     
-│   │      ├── features             Contains feature selection results
-│   ├── html                        Contains html files for figures
-│   ├── js                          Contains JavaScript files to create figures
-│   ├── index.html                  Contains direct links to html files
-│   ├── ***nested_cross_validation.py  Python file with nested cross validation***
-│   ├── train_final_model.py        Python file where the final model is trained
+│   ├──  data                        Contains patient data
+|   ├──  figures                     Contains figures shown in this README file
+│   ├──  results                     
+│   │       ├── features             Contains feature selection results
+│   ├──  html                        Contains html files for figures
+│   ├──  js                          Contains JavaScript files to create figures
+│   │       ├── heatmap_RFE.js       JavaScript file that creates interactive heatmap
+│   │       ├── scatterplot.js       JavaScript file that creates interactive scatterplot                 
+│   ├── index.html                   Contains direct links to html files
+│   ├── nested_cross_validation.py   Python file with nested cross validation
+│   ├── train_final_model.py         Python file where the final model is trained
 
 
 ```
