@@ -32,12 +32,12 @@ Vector Machine as a classification method. Using nested cross validation, the ac
 Ultimately, the best feature selection method and corresponding parameter set were chosen based on the accuracy scores that were found during cross validation.
 We classified the breast cancer patients and created a confusion matrix of the results. The predicted class is shown on the X-axis
 and on the Y-axis the true class can be observed.
-
-
 <html>
-<a href="link" style="text-align: center">
 
-<img src="figures/RFE_CM.png" width="50%" height="50%" class="center" align="center"></a>
+<p align="center">
+  <img src="figures/RFE_CM.png" width="50%" height="50%" class="center" />
+</p>
+
 
 </html>
 
