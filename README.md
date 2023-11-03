@@ -11,7 +11,6 @@ codesample
 |   ├──  figures                     Contains figures shown in this README file
 │   ├──  results                     
 │   │       ├── features             Contains feature selection results
-│   ├──  html                        Contains html files for figures
 │   ├──  js                          Contains JavaScript files to create figures
 │   │       ├── heatmap_RFE.js       JavaScript file that creates interactive heatmap
 │   │       ├── scatterplot.js       JavaScript file that creates interactive scatterplot                 
