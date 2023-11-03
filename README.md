@@ -8,7 +8,7 @@ codesample
 │   ├── data                        Contains patient data
 |   ├── figures                     Contains figures shown in this README file
 │   ├── results                     
-│   │      ├── features             Contains feature selection data
+│   │      ├── features             Contains feature selection results
 │   │      ├── runs                 Contains result data of the cross validation
 │   ├── html                        Contains html files for figures
 │   ├── js                          Contains JavaScript files to create figures
@@ -25,7 +25,7 @@ to create a model that would be able to classify the samples into different brea
 This project investigated three feature selection methods and used a Support
 Vector Machine as a classification method. Using nested cross validation, the accuracy of the feature selection methods and several parameter settings was tested.
 
-
+<img src="figures/CV.png" width="200" height="200" />
 ![ScreenShot](figures/CV.png)
 
 Ultimately, the best feature selection method and corresponding parameter set were chosen based on the accuracy scores that were found during cross validation.
