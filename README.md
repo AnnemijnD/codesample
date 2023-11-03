@@ -13,7 +13,7 @@ codesample
 │   ├── html                        Contains html files for figures
 │   ├── js                          Contains JavaScript files to create figures
 │   ├── index.html                  Contains direct links to html files
-│   ├── nested_cross_validation.py  Python file with nested cross validation 
+│   ├── nested_cross_validation.py  Python file with nested cross validation
 │   ├── train_final_model.py        Python file where the final model is trained
 
 
@@ -42,5 +42,5 @@ and on the Y-axis the true class can be observed.
 </html>
 
 Lastly, to manually investigate which features were selected most often,
-an interactive frequency heat map was created with JavaScript. This heatmap can be viewed [here](https://annemijnd.github.io/codesample/1_Bioinformatics_in_Translational_Medicine/html/heatmap_RFE.html). In the upper graph, the features are sorted
+an interactive scatterplot and frequency heat map was created with JavaScript. The scatterplot can be viewed here: [here](https://annemijnd.github.io/codesample/1_Bioinformatics_in_Translational_Medicine/html/scat_freq_acc.html).  The heatmap can be viewed [here](https://annemijnd.github.io/codesample/1_Bioinformatics_in_Translational_Medicine/html/heatmap_RFE.html). In the upper graph, the features are sorted
 by frequency. In the bottom graph, they are ordered by feature number. Each element is a single feature.
