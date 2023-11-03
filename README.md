@@ -16,8 +16,8 @@ codesample
 │   │       ├── heatmap_RFE.js       JavaScript file that creates interactive heatmap
 │   │       ├── scatterplot.js       JavaScript file that creates interactive scatterplot                 
 │   ├── index.html                   Contains direct links to html files
-│   ├── nested_cross_validation.py   Python file with nested cross validation
-│   ├── train_final_model.py         Python file where the final model is trained
+│   ├── **nested_cross_validation.py   Python file with nested cross validation**
+│   ├── **train_final_model.py         Python file where the final model is trained**
 
 
 ```
