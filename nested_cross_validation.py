@@ -18,7 +18,7 @@ def process_data():
 
     Returns:
         X (NumPy array) : NumPy array with chromosomal data
-        Y (NumPy array) : NumPy dataframe with diagnosis per patient
+        y (NumPy array) : NumPy dataframe with diagnosis per patient
     """
 
     # Store the data in two Dataframes
@@ -40,17 +40,17 @@ def process_data():
     X = final_df.iloc[:,1:len(dfcall) + 1].values
 
     # Create patient subtype data NumPy array
-    Y = final_df.iloc[:, -1].values
+    y = final_df.iloc[:, -1].values
 
-    return X, Y
+    return X, y
 
-def FS_ReliefF(X_train,Y_train,X_test,Nfeatures,ReliefF_K):
+def FS_ReliefF(X_train,y_train,X_test,Nfeatures,ReliefF_K):
     """
     Uses ReliefF feature selection to select features
 
     Args:
         X_train (NumPy array) : Array of patient data of training set
-        Y_train (NumPy array) : Array with subtype patient data of training set
+        y_train (NumPy array) : Array with subtype patient data of training set
         X_test (NumPy array)  : Array of patient data of test set
         Nfeatures (int)       : Number of features to be selected
         RefiefF_K (int)       : ReliefF_K parameter
@@ -62,7 +62,7 @@ def FS_ReliefF(X_train,Y_train,X_test,Nfeatures,ReliefF_K):
 
     # Select features
     fs = ReliefF(n_neighbors=ReliefF_K, n_features_to_keep=Nfeatures)
-    fs.fit(X_train,Y_train)
+    fs.fit(X_train,y_train)
 
     # Keep only selected features
     X_train_fil = fs.transform(X_train)
@@ -70,17 +70,17 @@ def FS_ReliefF(X_train,Y_train,X_test,Nfeatures,ReliefF_K):
 
     return X_train_fil,X_test_fil
 
-def FS_RFE(X_train,Y_train,X_test,Nfeatures,RFE_step,classifier):
+def FS_RFE(X_train,y_train,X_test,Nfeatures,RFE_step,classifier):
     """
     Uses RFE feature selection to select features
 
     Args:
-        X_train (NumPy array) : Array of patient data of training set
-        Y_train (NumPy array) : Array with subtype patient data of training set
-        X_test (NumPy array)  : Array of patient data of test set
-        Nfeatures (int)       : Number of features to be selected
-        RFE_step (int)        : RFE steps parameter
-        classifier (int)      : SVM parameter
+        X_train (NumPy array)       : Array of patient data of training set
+        y_train (NumPy array)       : Array with subtype patient data of training set
+        X_test (NumPy array)        : Array of patient data of test set
+        Nfeatures (int)             : Number of features to be selected
+        RFE_step (int)              : RFE steps parameter
+        classifier (sklearn object) : The SVM classifier object
 
     Returns:
         X_train_fil (NumPy array) : Array of patient data with only the selected features (training set)
@@ -89,7 +89,7 @@ def FS_RFE(X_train,Y_train,X_test,Nfeatures,RFE_step,classifier):
 
     # Select features
     selector = RFE(classifier,n_features_to_select=Nfeatures,step=RFE_step)
-    selector = selector.fit(X_train, Y_train)
+    selector = selector.fit(X_train, y_train)
 
     # Construct mask
     mask = []
@@ -103,13 +103,13 @@ def FS_RFE(X_train,Y_train,X_test,Nfeatures,RFE_step,classifier):
 
     return X_train_fil,X_test_fil
 
-def FS_IG(X_train,Y_train,X_test,Nfeatures,IG_neighbours):
+def FS_IG(X_train,y_train,X_test,Nfeatures,IG_neighbours):
     """
     Uses InfoGain feature selection to select features
 
     Args:
         X_train (NumPy array) : Array of patient data of training set
-        Y_train (NumPy array) : Array with subtype patient data of training set
+        y_train (NumPy array) : Array with subtype patient data of training set
         X_test (NumPy array)  : Array of patient data of test set
         Nfeatures (int)       : Number of features to be selected
         IG_neighbours (int)   : InfoGain parameter
@@ -120,7 +120,7 @@ def FS_IG(X_train,Y_train,X_test,Nfeatures,IG_neighbours):
     """
 
     # Get the gains vector
-    gain_vec = mutual_info_classif(X_train, Y_train, discrete_features=True,n_neighbors=IG_neighbours)
+    gain_vec = mutual_info_classif(X_train, y_train, discrete_features=True,n_neighbors=IG_neighbours)
 
     # Obtain indices of columns to be deleted
     delete_ind = gain_vec.argsort()[::-1][Nfeatures:]
@@ -131,34 +131,34 @@ def FS_IG(X_train,Y_train,X_test,Nfeatures,IG_neighbours):
 
     return X_train_fil,X_test_fil
 
-def classify(X_train, X_test, Y_train, Y_test, classifier):
+def classify(X_train, X_test, y_train, y_test, classifier):
     """
     Uses Support Vector Machine to classify patient data.
 
     Args:
         X_train (NumPy array)       : Array of patient data of training set
         X_test (NumPy array)        : Array of patient data of test set
-        Y_train (NumPy array)       : Array with subtype patient data of training set
-        Y_test (NumPy array)        : Array of subtype patient data of test set
+        y_train (NumPy array)       : Array with subtype patient data of training set
+        y_test (NumPy array)        : Array of subtype patient data of test set
         classifier (sklearn object) : The SVM classifier object
 
     Returns:
         score (float)           : Accuracy score of the fitting
-        Y_pred (NumPy array)    : Classified patient samples
+        y_pred (NumPy array)    : Classified patient samples
     """
 
     # Fit the data on the training set
-    classifier.fit(X_train, Y_train)
+    classifier.fit(X_train, y_train)
 
     # Predict the test set results using SVM model
-    Y_pred = classifier.predict(X_test)
+    y_pred = classifier.predict(X_test)
 
     # Obtain accuracy
-    score = accuracy_score(Y_test,Y_pred)
+    score = accuracy_score(y_test,y_pred)
 
-    return score,Y_pred
+    return score,y_pred
 
-def check_accuracy(highest_acc_params,X_train_out,Y_train_out,X_test_out,Y_test_out):
+def check_accuracy(highest_acc_params,X_train_out,y_train_out,X_test_out,y_test_out):
     """
     Calculates the accuracy of a model - derived from the parameter optimization in the
     inner folds of an outer fold - on the test set of that outer fold.
@@ -166,9 +166,9 @@ def check_accuracy(highest_acc_params,X_train_out,Y_train_out,X_test_out,Y_test_
     Args:
         highest_acc_params (dict)   : Best parameters found during parameter optimization all inner folds of one outer fold
         X_train_out (NumPy array)   : Outer fold patient data of the training set
-        Y_train_out (NumPy array)   : Outer fold patient subtype data of the training set
+        y_train_out (NumPy array)   : Outer fold patient subtype data of the training set
         X_test_out (NumPy array)    : Outer fold patient data of the test set
-        Y_test_out (NumPy array)    : Outer fold patient subtype data of the test set
+        y_test_out (NumPy array)    : Outer fold patient subtype data of the test set
 
     Returns:
         outer_accuracy_results (dict) : accuracy of the model with selected parameters
@@ -187,23 +187,23 @@ def check_accuracy(highest_acc_params,X_train_out,Y_train_out,X_test_out,Y_test_
     if selector == 'ReliefF':
 
         ReliefF_K = highest_acc_params['inner_results']['ReliefF_K']
-        X_train_out_fil,X_test_out_fil = FS_ReliefF(X_train=X_train_out,Y_train=Y_train_out,X_test=X_test_out,Nfeatures=Nfeatures,ReliefF_K=ReliefF_K)
-        score,Y_pred = classify(X_train_out_fil,X_test_out_fil,Y_train_out,Y_test_out,classifier)
+        X_train_out_fil,X_test_out_fil = FS_ReliefF(X_train=X_train_out,y_train=y_train_out,X_test=X_test_out,Nfeatures=Nfeatures,ReliefF_K=ReliefF_K)
+        score,y_pred = classify(X_train_out_fil,X_test_out_fil,y_train_out,y_test_out,classifier)
 
     elif selector == 'RFE':
 
         RFE_step = highest_acc_params['inner_results']['RFE_step']
-        X_train_out_fil,X_test_out_fil = FS_RFE(X_train=X_train_out,Y_train=Y_train_out,X_test=X_test_out,Nfeatures=Nfeatures,RFE_step=RFE_step,classifier=classifier)
-        score,Y_pred = classify(X_train_out_fil,X_test_out_fil,Y_train_out,Y_test_out,classifier)
+        X_train_out_fil,X_test_out_fil = FS_RFE(X_train=X_train_out,y_train=y_train_out,X_test=X_test_out,Nfeatures=Nfeatures,RFE_step=RFE_step,classifier=classifier)
+        score,y_pred = classify(X_train_out_fil,X_test_out_fil,y_train_out,y_test_out,classifier)
 
     elif selector == 'InfoGain':
 
         IG_neighbours = highest_acc_params['inner_results']['IG_neighbours']
-        X_train_out_fil,X_test_out_fil = FS_IG(X_train=X_train_out,Y_train=Y_train_out,X_test=X_test_out,Nfeatures=Nfeatures,IG_neighbours=IG_neighbours)
-        score,Y_pred = classify(X_train_out_fil,X_test_out_fil,Y_train_out,Y_test_out,classifier)
+        X_train_out_fil,X_test_out_fil = FS_IG(X_train=X_train_out,y_train=y_train_out,X_test=X_test_out,Nfeatures=Nfeatures,IG_neighbours=IG_neighbours)
+        score,y_pred = classify(X_train_out_fil,X_test_out_fil,y_train_out,y_test_out,classifier)
 
     # Save the accuracy score of this outer fold
-    outer_accuracy_results = {'score':score,'params':highest_acc_params,'Y_test':Y_test_out,'Y_pred':Y_pred}
+    outer_accuracy_results = {'score':score,'params':highest_acc_params,'y_test':y_test_out,'y_pred':y_pred}
 
     return outer_accuracy_results
 
@@ -249,16 +249,16 @@ def average_accuracy(inner_results,Nsplits_in):
 
     return highest_acc_params
 
-def parameter_optimization(X_train_in,Y_train_in,X_test_in,Y_test_in,ind_in,inner_results):
+def parameter_optimization(X_train_in,y_train_in,X_test_in,y_test_in,ind_in,inner_results):
     """
     Performs hyperparameter optimization for each inner fold and updates
     the 'inner_results' dictionary.
 
     Args:
         X_train_in (NumPy array)    : Inner fold patient data of the training set
-        Y_train_in (NumPy array)    : Inner fold patient subtype data of the training set
+        y_train_in (NumPy array)    : Inner fold patient subtype data of the training set
         X_test_in (NumPy array)     : Inner fold patient data of the test set
-        Y_test_in (NumPy array)     : Inner fold patient subtype data of the test set
+        y_test_in (NumPy array)     : Inner fold patient subtype data of the test set
         ind_in (int)                : Inner fold iteration were are currently at
         inner_results (dict)        : The dictionary with results of all previous inner folds
     """
@@ -292,31 +292,31 @@ def parameter_optimization(X_train_in,Y_train_in,X_test_in,Y_test_in,ind_in,inne
                     if selector == 'ReliefF':
                         for ReliefF_K in RELIEFF_K_list:
 
-                            X_train_fil,X_test_fil = FS_ReliefF(X_train=X_train_in,Y_train=Y_train_in,X_test=X_test_in,Nfeatures=Nfeatures,ReliefF_K=ReliefF_K)
-                            score,Y_pred = classify(X_train_fil,X_test_fil,Y_train_in,Y_test_in,classifier)
+                            X_train_fil,X_test_fil = FS_ReliefF(X_train=X_train_in,y_train=y_train_in,X_test=X_test_in,Nfeatures=Nfeatures,ReliefF_K=ReliefF_K)
+                            score,y_pred = classify(X_train_fil,X_test_fil,y_train_in,y_test_in,classifier)
                             inner_results[ind_in].append({'selector':selector,'Nfeatures':Nfeatures,'score':score, 'c':c, 'max_iter':max_iter, 'ReliefF_K':ReliefF_K})
 
                     elif selector == 'RFE':
                         for RFE_step in RFE_step_list:
 
-                            X_train_fil,X_test_fil = FS_RFE(X_train=X_train_in,Y_train=Y_train_in,X_test=X_test_in,Nfeatures=Nfeatures,RFE_step=RFE_step,classifier=classifier)
-                            score,Y_pred = classify(X_train_fil,X_test_fil,Y_train_in,Y_test_in,classifier)
+                            X_train_fil,X_test_fil = FS_RFE(X_train=X_train_in,y_train=y_train_in,X_test=X_test_in,Nfeatures=Nfeatures,RFE_step=RFE_step,classifier=classifier)
+                            score,y_pred = classify(X_train_fil,X_test_fil,y_train_in,y_test_in,classifier)
                             inner_results[ind_in].append({'selector':selector,'Nfeatures':Nfeatures,'score':score, 'c':c, 'max_iter':max_iter, 'RFE_step':RFE_step})
 
                     elif selector == 'InfoGain':
                         for IG_neighbours in IG_neighbours_list:
 
-                            X_train_fil,X_test_fil = FS_IG(X_train=X_train_in,Y_train=Y_train_in,X_test=X_test_in,Nfeatures=Nfeatures,IG_neighbours=IG_neighbours)
-                            score,Y_pred = classify(X_train_fil,X_test_fil,Y_train_in,Y_test_in,classifier)
+                            X_train_fil,X_test_fil = FS_IG(X_train=X_train_in,y_train=y_train_in,X_test=X_test_in,Nfeatures=Nfeatures,IG_neighbours=IG_neighbours)
+                            score,y_pred = classify(X_train_fil,X_test_fil,y_train_in,y_test_in,classifier)
                             inner_results[ind_in].append({'selector':selector,'Nfeatures':Nfeatures,'score':score, 'c':c, 'max_iter':max_iter, 'IG_neighbours':IG_neighbours})
 
-def nested_cross_validate(X,Y,Nsplits_out,Nsplits_in,results,iter):
+def nested_cross_validate(X,y,Nsplits_out,Nsplits_in,results,iter):
     """
     Performs a nested cross validation and updates the 'results' dictionary.
 
     Args:
         X (NumPy array)     : All patient data
-        Y (NumPy array)     : All patient subtype data
+        y (NumPy array)     : All patient subtype data
         Nsplits_out (int)   : Amount of inner folds of cross validation
         Nsplits_in (int)    : Amount of outer folds of cross validation
         results (dict)      : Dictionary of all previous results of outer folds
@@ -341,7 +341,7 @@ def nested_cross_validate(X,Y,Nsplits_out,Nsplits_in,results,iter):
 
         # Create outer fold data sets
         X_train_out, X_test_out = X[train_index_out], X[test_index_out]
-        Y_train_out, Y_test_out = Y[train_index_out], Y[test_index_out]
+        y_train_out, y_test_out = y[train_index_out], y[test_index_out]
 
         # Define inner fold KFold object
         validator_in = KFold(n_splits=Nsplits_in,shuffle=True)
@@ -363,16 +363,16 @@ def nested_cross_validate(X,Y,Nsplits_out,Nsplits_in,results,iter):
 
             # Create inner fold data set
             X_train_in, X_test_in = X_train_out[train_index_in], X_train_out[test_index_in]
-            Y_train_in, Y_test_in = Y_train_out[train_index_in], Y_train_out[test_index_in]
+            y_train_in, y_test_in = y_train_out[train_index_in], y_train_out[test_index_in]
 
             # Perform parameter optimization
-            parameter_optimization(X_train_in,Y_train_in,X_test_in,Y_test_in,ind_in,inner_results) #adds to inner_results
+            parameter_optimization(X_train_in,y_train_in,X_test_in,y_test_in,ind_in,inner_results) #adds to inner_results
 
         # Define the average accuracy of all inner folds within this outer fold
         highest_acc_params = average_accuracy(inner_results,Nsplits_in)
 
         # Define the accuracy of this outer fold using outer fold test set
-        outer_accuracy_results = check_accuracy(highest_acc_params,X_train_out,Y_train_out,X_test_out,Y_test_out)
+        outer_accuracy_results = check_accuracy(highest_acc_params,X_train_out,y_train_out,X_test_out,y_test_out)
 
         # Update results dictionary
         results[iter][ind_out] = outer_accuracy_results
@@ -381,22 +381,22 @@ if __name__ == "__main__":
     save_data = False
 
     # Number of splits in the cross validation in the outer and inner folds
-    Nsplits_out = 3
-    Nsplits_in = 5
+    Nsplits_out = 2
+    Nsplits_in = 2
 
     # Number of iterations
-    Niterations = 10
+    Niterations = 1
 
     # Define results dictionary
     results = {}
 
     # Load and preprocess the data
-    X, Y = process_data()
+    X, y = process_data()
 
     # Start nested cross validation
     for iter in range(Niterations):
 
-        nested_cross_validate(X,Y,Nsplits_out,Nsplits_in,results,iter)
+        nested_cross_validate(X,y,Nsplits_out,Nsplits_in,results,iter)
 
     if save_data:
         with open('results1.pkl', 'wb') as f:

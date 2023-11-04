@@ -3,47 +3,11 @@ import pandas as pd
 from sklearn.feature_selection import RFE
 from sklearn.svm import SVC
 import pickle
+from nested_cross_validation import process_data
 
 global CHOSEN_FEAUTURES
 CHOSEN_FEAUTURES = []
 N_FEATURES = 0
-
-def process_data():
-    """
-    Processes patient data to a usable format.
-
-    Returns:
-        X (NumPy array) : numpy dataframe with chromosomal data
-        Y (NumPy array) : numpy dataframe with diagnosis per patient
-    """
-
-    # Store the data in two Dataframes
-    callfile = "data/Train_call.txt"
-    clinicalfile = "data/Train_clinical.txt"
-
-    dfcall = pd.read_csv(callfile, delimiter="\t")
-    dfclin = pd.read_csv(clinicalfile, delimiter="\t")
-
-    # Check whether there is any "null" or "na" in the table
-    dfcall.isnull().sum()
-    dfcall.isna().sum()
-
-    # Rotate dfcall 90 degrees, remove unnecessary lines and reset index
-    temp_df = dfcall.T
-    rotated_df=temp_df[4::]
-    rotated_df = rotated_df.reset_index()
-
-    # Add subgroup column to df
-    final_df=rotated_df.assign(Diagnosis=dfclin.Subgroup)
-
-    # Create patient data NumPy array
-    X = final_df.iloc[:,1:2835].values
-
-    # Create patient subtype data NumPy array
-    Y = final_df.iloc[:, -1].values
-
-    return X, Y
-
 
 def FS_RFE(X, Y, step, c, max_iter):
     """
@@ -64,14 +28,17 @@ def FS_RFE(X, Y, step, c, max_iter):
 
     # Define the feature selection method and select features
     selector = RFE(estimator,n_features_to_select=N_FEATURES, step=step)
-    selector = selector.fit(X, Y)
+    selector = selector.fit(X, y)
 
     # Construct mask
     mask = []
+
     for i in range(len(selector.support_)):
         if not selector.support_[i]:
             mask.append(i)
         else:
+
+            # Save the features that were chosen
             CHOSEN_FEAUTURES.append(i)
 
     # Keep only selected features
@@ -87,14 +54,14 @@ if __name__ == "__main__":
     step = 2
 
     # Load and preprocess the data
-    X, Y = process_data()
+    X, y = process_data()
 
     # Perform feature selection
-    X = FS_RFE(X=X, Y=Y, c=c, step=step, max_iter=max_iter)
+    X = FS_RFE(X, y, c, step, max_iter)
 
     # Build classifier
     classifier =  SVC(kernel = 'linear', max_iter=max_iter, C=c)
-    classifier.fit(X, Y)
+    classifier.fit(X, y)
 
     # save classifier
     if save_data:
