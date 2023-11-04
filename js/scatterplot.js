@@ -1,19 +1,9 @@
 // To see page: https://annemijnd.github.io/codesample/html/scat_freq_acc.html
 
 // Define data path and import data
-var datapath = "../";
-try {
-  d3.csv(datapath + 'results/features/scatterplot_IGdata.csv', function(data) {
-    console.log(data)
-  })
-}
-catch(err) {
-  datapath = "../../"
-  d3.csv(datapath + 'results/features/scatterplot_IGdata.csv', function(data) {
-    console.log(data)})
-}
+var datapath = "../results/features/scatterplot_IGdata.csv";
 
-d3.csv(datapath + 'results/features/scatterplot_IGdata.csv', function loadCallback(error, data) {
+d3.csv(datapath, function loadCallback(error, data) {
     data.forEach(function(d) {
         // convert strings to numbers
         d.accs = +d.accs;
@@ -99,7 +89,7 @@ var makeVis2 = function(data) {
         .attr("x", (width / 2))
         .attr("y", 0 - (margin.top / 2) + 20)
         .attr("text-anchor", "middle")
-        .style("font-size", "10px")
+        .style("font-size", "11px")
         .text("A plot that shows how often a feature was selected and the average accuracy of the models it was used for. \n Hover over the dots to see the feature number and frequency. ");
 
 
@@ -116,7 +106,7 @@ var makeVis2 = function(data) {
         tooltip.html(html)
             .style("left", (d3.event.pageX + 15) + "px")
             .style("top", (d3.event.pageY - 28) + "px")
-          .transition()
+            .transition()
             .duration(200)
             .style("opacity", .9)
 
@@ -136,11 +126,8 @@ var makeVis2 = function(data) {
           .append("circle")
           .attr("class", "dot")
           .attr("r", 3)
-          // .transition()
-          // .delay(function(d,i){return(i*3)})
-          // .duration(2000)
-          .attr("cx", function(d) { return xScale( d.freqs ); })     // x position
-          .attr("cy", function(d) { return yScale( d.accs ); })  // y position
+          .attr("cx", function(d) { return xScale( d.freqs ); })
+          .attr("cy", function(d) { return yScale( d.accs ); })
           .style("fill", function(d) { return colorScale(d.freqs); })
 
   canvas.selectAll(".dot")
