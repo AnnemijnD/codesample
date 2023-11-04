@@ -1,4 +1,4 @@
-# Code Sample Bioinformatics project
+# Code Sample Bioinformatics Project
 
 This GitHub page contains the project I did during a bioinformatics course. We used machine learning to classify subtypes of breast cancer within patients.
 
@@ -23,7 +23,7 @@ Most interesting files:
 - nested_cross_validation.py
 - train_final_model.py
 - heatmap_RFE.js
-- scatterplot.js 
+- scatterplot.js
 
 ## Brief summary of the project
 During this project, we obtained the data of breast cancer patients and were asked

@@ -17,8 +17,8 @@ def process_data():
     Processes patient data to a usable format.
 
     Returns:
-        X (NumPy array) : numpy dataframe with chromosomal data
-        Y (NumPy array) : numpy dataframe with diagnosis per patient
+        X (NumPy array) : NumPy array with chromosomal data
+        Y (NumPy array) : NumPy dataframe with diagnosis per patient
     """
 
     # Store the data in two Dataframes
@@ -27,10 +27,6 @@ def process_data():
 
     dfcall = pd.read_csv(callfile, delimiter="\t")
     dfclin = pd.read_csv(clinicalfile, delimiter="\t")
-
-    # Check whether there is any "null" or "na" in the table
-    dfcall.isnull().sum()
-    dfcall.isna().sum()
 
     # Rotate dfcall 90 degrees, remove unnecessary lines and reset index
     temp_df = dfcall.T
@@ -41,7 +37,7 @@ def process_data():
     final_df=rotated_df.assign(Diagnosis=dfclin.Subgroup)
 
     # Create patient data NumPy array
-    X = final_df.iloc[:,1:2835].values
+    X = final_df.iloc[:,1:len(dfcall) + 1].values
 
     # Create patient subtype data NumPy array
     Y = final_df.iloc[:, -1].values
