@@ -11,7 +11,7 @@ codesample
 |   ├──  figures                     Contains figures shown in this README file
 │   ├──  html
 │   ├──  js                          Contains JavaScript files to create figures
-│   │       ├── heatmap.js       JavaScript file that creates interactive heatmap
+│   │       ├── heatmap.js           JavaScript file that creates interactive heatmap
 │   │       ├── scatterplot.js       JavaScript file that creates interactive scatterplot  
 │   ├──  results                     
 │   │       ├── features             Contains feature selection results               
@@ -22,7 +22,7 @@ codesample
 Most interesting files:
 - nested_cross_validation.py
 - train_final_model.py
-- heatmap_RFE.js
+- heatmap.js
 - scatterplot.js
 
 ## Brief summary of the project
