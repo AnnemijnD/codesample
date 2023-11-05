@@ -13,14 +13,14 @@ def FS_RFE(X, Y, step, c, max_iter):
     """
     Uses SVM-RFE feature selection to select features
     Args:
-        X (numpy array) : Array of patient data
-        Y (numpy array) : Array with subtype patient data
+        X (NumPy array) : Array of patient data
+        Y (NumPy array) : Array with subtype patient data
         step (int)      : RFE steps parameter
         c (int)         : SVM parameter
         max_iter (int)  : SVM parameter
 
     Returns:
-        X_fil (numpy array) : Array of patient data with only the selected features
+        X_fil (NumPy array) : Array of patient data with only the selected features
     """
 
     # Define the SVM

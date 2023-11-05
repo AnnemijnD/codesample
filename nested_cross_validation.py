@@ -187,19 +187,19 @@ def check_accuracy(highest_acc_params,X_train_out,y_train_out,X_test_out,y_test_
     if selector == 'ReliefF':
 
         ReliefF_K = highest_acc_params['inner_results']['ReliefF_K']
-        X_train_out_fil,X_test_out_fil = FS_ReliefF(X_train=X_train_out,y_train=y_train_out,X_test=X_test_out,Nfeatures=Nfeatures,ReliefF_K=ReliefF_K)
+        X_train_out_fil,X_test_out_fil = FS_ReliefF(X_train_out,y_train_out,X_test_out,Nfeatures,ReliefF_K)
         score,y_pred = classify(X_train_out_fil,X_test_out_fil,y_train_out,y_test_out,classifier)
 
     elif selector == 'RFE':
 
         RFE_step = highest_acc_params['inner_results']['RFE_step']
-        X_train_out_fil,X_test_out_fil = FS_RFE(X_train=X_train_out,y_train=y_train_out,X_test=X_test_out,Nfeatures=Nfeatures,RFE_step=RFE_step,classifier=classifier)
+        X_train_out_fil,X_test_out_fil = FS_RFE(X_train_out,y_train_out,X_test_out,Nfeatures,RFE_step,classifier)
         score,y_pred = classify(X_train_out_fil,X_test_out_fil,y_train_out,y_test_out,classifier)
 
     elif selector == 'InfoGain':
 
         IG_neighbours = highest_acc_params['inner_results']['IG_neighbours']
-        X_train_out_fil,X_test_out_fil = FS_IG(X_train=X_train_out,y_train=y_train_out,X_test=X_test_out,Nfeatures=Nfeatures,IG_neighbours=IG_neighbours)
+        X_train_out_fil,X_test_out_fil = FS_IG(X_train_out,y_train_out, X_test_out,Nfeatures,IG_neighbours)
         score,y_pred = classify(X_train_out_fil,X_test_out_fil,y_train_out,y_test_out,classifier)
 
     # Save the accuracy score of this outer fold
@@ -261,6 +261,9 @@ def parameter_optimization(X_train_in,y_train_in,X_test_in,y_test_in,ind_in,inne
         y_test_in (NumPy array)     : Inner fold patient subtype data of the test set
         ind_in (int)                : Inner fold iteration were are currently at
         inner_results (dict)        : The dictionary with results of all previous inner folds
+
+    Returns:
+        inner_results (dict)        : Updated dictionary with results of this and all previous inner folds
     """
 
     # number of features
@@ -292,23 +295,25 @@ def parameter_optimization(X_train_in,y_train_in,X_test_in,y_test_in,ind_in,inne
                     if selector == 'ReliefF':
                         for ReliefF_K in RELIEFF_K_list:
 
-                            X_train_fil,X_test_fil = FS_ReliefF(X_train=X_train_in,y_train=y_train_in,X_test=X_test_in,Nfeatures=Nfeatures,ReliefF_K=ReliefF_K)
+                            X_train_fil,X_test_fil = FS_ReliefF(X_train_in,y_train_in,X_test_in, Nfeatures,ReliefF_K)
                             score,y_pred = classify(X_train_fil,X_test_fil,y_train_in,y_test_in,classifier)
                             inner_results[ind_in].append({'selector':selector,'Nfeatures':Nfeatures,'score':score, 'c':c, 'max_iter':max_iter, 'ReliefF_K':ReliefF_K})
 
                     elif selector == 'RFE':
                         for RFE_step in RFE_step_list:
 
-                            X_train_fil,X_test_fil = FS_RFE(X_train=X_train_in,y_train=y_train_in,X_test=X_test_in,Nfeatures=Nfeatures,RFE_step=RFE_step,classifier=classifier)
+                            X_train_fil,X_test_fil = FS_RFE(X_train_in,y_train_in,X_test_in,Nfeatures,RFE_step,classifier=classifier)
                             score,y_pred = classify(X_train_fil,X_test_fil,y_train_in,y_test_in,classifier)
                             inner_results[ind_in].append({'selector':selector,'Nfeatures':Nfeatures,'score':score, 'c':c, 'max_iter':max_iter, 'RFE_step':RFE_step})
 
                     elif selector == 'InfoGain':
                         for IG_neighbours in IG_neighbours_list:
 
-                            X_train_fil,X_test_fil = FS_IG(X_train=X_train_in,y_train=y_train_in,X_test=X_test_in,Nfeatures=Nfeatures,IG_neighbours=IG_neighbours)
+                            X_train_fil,X_test_fil = FS_IG(X_train_in,y_train_in,X_test_in,Nfeatures,IG_neighbours)
                             score,y_pred = classify(X_train_fil,X_test_fil,y_train_in,y_test_in,classifier)
                             inner_results[ind_in].append({'selector':selector,'Nfeatures':Nfeatures,'score':score, 'c':c, 'max_iter':max_iter, 'IG_neighbours':IG_neighbours})
+
+    return inner_results
 
 def nested_cross_validate(X,y,Nsplits_out,Nsplits_in,results,iter):
     """
@@ -321,6 +326,9 @@ def nested_cross_validate(X,y,Nsplits_out,Nsplits_in,results,iter):
         Nsplits_in (int)    : Amount of outer folds of cross validation
         results (dict)      : Dictionary of all previous results of outer folds
         iter (int)          : The iteration of nested cross validation were are currently in
+
+    Returns:
+        results (dict)      : Updated dictionary of this and all previous results of outer folds
     """
 
     # Add dictionary to results dictionary
@@ -365,8 +373,11 @@ def nested_cross_validate(X,y,Nsplits_out,Nsplits_in,results,iter):
             X_train_in, X_test_in = X_train_out[train_index_in], X_train_out[test_index_in]
             y_train_in, y_test_in = y_train_out[train_index_in], y_train_out[test_index_in]
 
-            # Perform parameter optimization
-            parameter_optimization(X_train_in,y_train_in,X_test_in,y_test_in,ind_in,inner_results) #adds to inner_results
+            # Perform parameter optimization and update inner_results
+            inner_results = parameter_optimization(X_train_in,y_train_in,X_test_in,y_test_in,ind_in,inner_results)
+            print("---")
+            print("inner", inner_results)
+            print("---")
 
         # Define the average accuracy of all inner folds within this outer fold
         highest_acc_params = average_accuracy(inner_results,Nsplits_in)
@@ -376,6 +387,8 @@ def nested_cross_validate(X,y,Nsplits_out,Nsplits_in,results,iter):
 
         # Update results dictionary
         results[iter][ind_out] = outer_accuracy_results
+
+    return results
 
 if __name__ == "__main__":
     save_data = False
@@ -396,10 +409,13 @@ if __name__ == "__main__":
     # Start nested cross validation
     for iter in range(Niterations):
 
-        nested_cross_validate(X,y,Nsplits_out,Nsplits_in,results,iter)
+        results = nested_cross_validate(X,y,Nsplits_out,Nsplits_in,results,iter)
+        print("---")
+        print("results", results)
+        print("---")
 
     if save_data:
-        with open('results1.pkl', 'wb') as f:
+        with open('results.pkl', 'wb') as f:
             pickle.dump(results, f)
 
 """Sources:

@@ -1,4 +1,4 @@
-// To see page: https://annemijnd.github.io/codesample/html/scat_freq_acc.html
+// To see page: https://annemijnd.github.io/codesample/html/scatterplot.html
 
 // Define data path and import data
 var datapath = "../results/features/scatterplot_IGdata.csv";

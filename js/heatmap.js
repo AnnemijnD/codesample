@@ -1,4 +1,4 @@
-// To see page: https://annemijnd.github.io/codesample/html/heatmap_RFE.html
+// To see page: https://annemijnd.github.io/codesample/html/heatmap.html
 
 // Define some globals
 var myFEATURES = [];
@@ -11,7 +11,6 @@ var margin = {top: 80, right: 80, bottom: 50, left: 100},
 
 // Define path of data and import data
 var datapath = "../results/features/heatmap_RFE_freq.csv";
-
 
 d3.csv(datapath, function(data) {
   var feature_array = [];
