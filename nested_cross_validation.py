@@ -411,8 +411,3 @@ if __name__ == "__main__":
     if save_data:
         with open('results.pkl', 'wb') as f:
             pickle.dump(results, f)
-
-"""Sources:
-https://towardsdatascience.com/building-a-simple-machine-learning-model-on-breast-cancer-data-eca4b3b99fa3
-https://medium.com/@dtuk81/confusion-matrix-visualization-fc31e3f30fea
-https://github.com/DTrimarchi10/confusion_matrix/blob/master/cf_matrix.py"""
