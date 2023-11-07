@@ -394,11 +394,11 @@ if __name__ == "__main__":
     save_data = False
 
     # Number of splits in the cross validation in the outer and inner folds
-    Nsplits_out = 2
-    Nsplits_in = 2
+    Nsplits_out = 3
+    Nsplits_in = 5
 
     # Number of iterations
-    Niterations = 1
+    Niterations = 10
 
     # Define results dictionary
     results = {}
