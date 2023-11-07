@@ -375,9 +375,6 @@ def nested_cross_validate(X,y,Nsplits_out,Nsplits_in,results,iter):
 
             # Perform parameter optimization and update inner_results
             inner_results = parameter_optimization(X_train_in,y_train_in,X_test_in,y_test_in,ind_in,inner_results)
-            print("---")
-            print("inner", inner_results)
-            print("---")
 
         # Define the average accuracy of all inner folds within this outer fold
         highest_acc_params = average_accuracy(inner_results,Nsplits_in)
@@ -410,9 +407,6 @@ if __name__ == "__main__":
     for iter in range(Niterations):
 
         results = nested_cross_validate(X,y,Nsplits_out,Nsplits_in,results,iter)
-        print("---")
-        print("results", results)
-        print("---")
 
     if save_data:
         with open('results.pkl', 'wb') as f:
