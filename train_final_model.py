@@ -9,12 +9,12 @@ global CHOSEN_FEAUTURES
 CHOSEN_FEAUTURES = []
 N_FEATURES = 0
 
-def FS_RFE(X, Y, step, c, max_iter):
+def FS_RFE(X, y, step, c, max_iter):
     """
     Uses SVM-RFE feature selection to select features
     Args:
         X (NumPy array) : Array of patient data
-        Y (NumPy array) : Array with subtype patient data
+        y (NumPy array) : Array with subtype patient data
         step (int)      : RFE steps parameter
         c (int)         : SVM parameter
         max_iter (int)  : SVM parameter
